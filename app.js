@@ -1,0 +1,51 @@
+const {
+  ApolloServer,
+  gql,
+  AuthenticationError,
+} = require("apollo-server-express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const express = require("express");
+const expressJwt = require("express-jwt");
+const jwt = require("jsonwebtoken");
+const typeDefs = require("./typeDefs");
+const { initDB, closeDB } = require("./dbAdapter");
+const userResolver = require("./user/userResolver");
+const assetResolver = require("./assets/assetResolver");
+const { validateTokensMiddleware } = require("./shared/validateMidlleware");
+
+const port = 9000;
+
+const jwtSecret = Buffer.from("n8QtyZ/G1MHltc4F/gTkVJMlrbKiZt", "base64");
+
+const app = express();
+app.use(cors(), bodyParser.json());
+const context = ({ req }) => {
+  const token = req.headers.authorization || "";
+  console.log(req.headers.authorization);
+  const splitToken = token.split(" ")[1];
+  try {
+    jwt.verify(splitToken, jwtSecret);
+  } catch (e) {
+    throw new AuthenticationError("Authenication token is invalid");
+  }
+};
+
+const apolloServer = new ApolloServer({
+  typeDefs,
+  resolvers: [userResolver, assetResolver],
+  context: ({ req, res }) => ({ req, res }),
+});
+app.use(validateTokensMiddleware);
+apolloServer.applyMiddleware({ app, path: "/graphql" });
+
+app.post("/login", (req, res) => {
+  const { email, password } = req.body;
+  console.info("login request");
+  const token = jwt.sign({ sub: 1 }, jwtSecret);
+  res.send(token);
+});
+app.listen(port, () => {
+  console.info(`server started on port ${port}`);
+  initDB();
+});
