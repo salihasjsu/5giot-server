@@ -2,7 +2,7 @@ const { setTokens } = require("./setTokens");
 const { getUserById } = require("../user/fetchUser");
 const {
   validateAccessToken,
-  validaterefreshToken,
+  validateRefreshToken,
 } = require("./validateTokens");
 
 async function validateTokensMiddleware(req, res, next) {
@@ -11,20 +11,21 @@ async function validateTokensMiddleware(req, res, next) {
   const accessToken = req.headers["x-access-token"];
   if (!accessToken && !refreshToken) return next(); // if no tokens are present just skip the validation of tokens
   const decodedAccessToken = validateAccessToken(accessToken);
-  console.log("Access token", decodedAccessToken);
+  console.log("ACCESS TOKEN:", decodedAccessToken);
   if (decodedAccessToken && decodedAccessToken.user) {
-    console.log("Access token", decodedAccessToken);
     req.user = decodedAccessToken.user;
     return next();
   }
 
-  /*  const decodedRefreshToken = validateRefreshToken(refreshToken);
+  const decodedRefreshToken = validateRefreshToken(refreshToken);
+  console.log("REFRESH TOKEN:", decodedRefreshToken);
   if (decodedRefreshToken && decodedRefreshToken.user) {
     // valid refresh token
-    const user = getUserById(decodedRefreshToken.user.id) 
+    let user = await getUserById(decodedRefreshToken.user.id);
     // valid user and user token not invalidated
-    if (!user || user.tokenCount !== decodedRefreshToken.user.count)
+    if (!user || user.tokenCount !== decodedRefreshToken.user.count) {
       return next();
+    }
     req.user = decodedRefreshToken.user;
     // refresh the tokens
     const userTokens = setTokens(user);
@@ -33,8 +34,9 @@ async function validateTokensMiddleware(req, res, next) {
       "x-access-token": userTokens.accessToken,
       "x-refresh-token": userTokens.refreshToken,
     });
+    console.log("headers set in response");
     return next();
-  }*/
+  }
   next();
 }
 

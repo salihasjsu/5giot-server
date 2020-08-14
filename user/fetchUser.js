@@ -1,5 +1,6 @@
 const { getDBConnection, getObjectId } = require("../dbAdapter");
 const { UserInputError } = require("apollo-server-express");
+const isEmpty = require("lodash/isEmpty");
 
 async function getUserList() {
   console.log("going to get UserList");
@@ -36,4 +37,11 @@ async function getUserById(id) {
     });
   return user;
 }
-module.exports = { getUserList, getUserByName, getUserById };
+
+async function loggedInUser(_, __, { req }) {
+  if (isEmpty(req.user)) throw new AuthenticationError("Must authenticate");
+  let id = req.user.id;
+  let user = await getUserById(id);
+  return user;
+}
+module.exports = { getUserList, getUserByName, getUserById, loggedInUser };

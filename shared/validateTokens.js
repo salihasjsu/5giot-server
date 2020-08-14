@@ -1,8 +1,9 @@
 const { verify } = require("jsonwebtoken");
+const { secretKey } = require("../config/config");
 
 function validateAccessToken(token) {
   try {
-    return verify(token, "abcdef");
+    return verify(token, secretKey);
   } catch {
     return null;
   }
@@ -10,7 +11,7 @@ function validateAccessToken(token) {
 
 function validateRefreshToken(token) {
   try {
-    return verify(token, "abcdef");
+    return verify(token, secretKey);
   } catch {
     return null;
   }
