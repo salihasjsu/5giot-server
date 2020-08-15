@@ -66,15 +66,16 @@ async function addUser(
 }
 
 async function login(root, { userName, password }) {
-  console.info("going to get user");
+  console.info("trying to login");
   const userCollection = getDBConnection().collection("users");
-  let user = await userCollection
+  let tokens = await userCollection
     .findOne({ userName: userName }, {})
     .then((res) => {
       if (!res) return null;
       if (!bcrypt.compareSync(password, res.password)) return null;
-      return res;
+      return setTokens(res);
     });
-  return setTokens(user);
+
+  return tokens;
 }
 module.exports = { addUser, login };
