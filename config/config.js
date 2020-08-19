@@ -6,15 +6,19 @@ const dbDetails = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   host: process.env.DB_HOST,
+  port: process.env.DB_PORT,
+  url: process.env.DB_URL,
 };
+
 const serverConfig = {
   host: process.env.HOST,
   port: process.env.PORT,
 };
 
 module.exports = {
-  development: dbDetails,
+  dbDeatils: dbDetails,
   production: dbDetails,
   serverConfig: serverConfig,
   secretKey: process.env.SECRET_KEY,
+  logLevel: process.LOG_LEVEL,
 };

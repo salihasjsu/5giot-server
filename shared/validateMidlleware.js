@@ -5,6 +5,7 @@ const {
   validateRefreshToken,
 } = require("./validateTokens");
 
+const { logger } = require("../logger");
 async function validateTokensMiddleware(req, res, next) {
   console.log("inside validate middleware");
   const refreshToken = req.headers["x-refresh-token"];

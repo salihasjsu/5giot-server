@@ -1,7 +1,8 @@
 const MongoClient = require("mongodb").MongoClient;
-const { UserInputError } = require("apollo-server-koa");
+const { dbDeatils } = require("./config/config");
 var ObjectID = require("mongodb").ObjectID;
-const url = "mongodb://localhost:27017";
+const { logger } = require("./logger.js");
+const url = dbDeatils.url;
 const client = new MongoClient(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -15,10 +16,10 @@ async function initDB() {
         if (err) return reject(err);
         let database = client.db("5gIoT");
         resolve(database);
-        console.log("Database Connected...");
+        logger.debug("Database Connected successfully");
       })
     ).catch((e) => {
-      console.log("could not get connection to MongoDB ..\n" + e);
+      logger.debug("could not get connection to MongoDB ..\n" + e);
       process.exit(1);
     });
   }

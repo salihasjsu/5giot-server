@@ -2,8 +2,8 @@ const { sign } = require("jsonwebtoken");
 const { secretKey } = require("../config/config");
 
 function setTokens(user) {
-  const twoDays = 60 * 2; // if changes here change it into post user service as well
-  const fifteenMins = 60 * 1;
+  const twoDays = 60 * 60 * 24 * 2; // if changes here change it into post user service as well
+  const fifteenMins = 60 * 15;
   const accessUser = {
     id: user._id,
   };

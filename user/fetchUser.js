@@ -39,7 +39,7 @@ async function getUserById(id) {
 }
 
 async function loggedInUser(_, __, { req }) {
-  if (isEmpty(req.user)) throw new AuthenticationError("Must authenticate");
+  if (isEmpty(req.user)) return null;
   let id = req.user.id;
   let user = await getUserById(id);
   return user;

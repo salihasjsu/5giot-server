@@ -35,7 +35,6 @@ const userSchema = gql`
     ): response
     deleteUser(_id: String!): response
     login(userName: String!, password: String!): tokens
-    loggedInUser: user
   }
   type user {
     _id: String

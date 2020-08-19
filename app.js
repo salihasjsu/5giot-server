@@ -1,5 +1,5 @@
 const { ApolloServer, AuthenticationError } = require("apollo-server-express");
-const { serverConfig } = require("./config/config");
+const { serverConfig, logLevel } = require("./config/config");
 
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -10,9 +10,7 @@ const { initDB, closeDB } = require("./dbAdapter");
 const userResolver = require("./user/userResolver");
 const assetResolver = require("./assets/assetResolver");
 const { validateTokensMiddleware } = require("./shared/validateMidlleware");
-
-const jwtSecret = Buffer.from("n8QtyZ/G1MHltc4F/gTkVJMlrbKiZt", "base64");
-
+const { logger } = require("./logger.js");
 const app = express();
 app.use(cors(), bodyParser.json());
 /*const context = ({ req }) => {
@@ -41,7 +39,7 @@ app.post("/login", (req, res) => {
   res.send(token);
 });*/
 const server = app.listen(serverConfig.port, serverConfig.host, () => {
-  console.log(
+  logger.debug(
     `server started at path ${apolloServer.graphqlPath} on ${serverConfig.port}`
   );
   initDB();

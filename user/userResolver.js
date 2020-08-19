@@ -7,13 +7,13 @@ const userResolver = {
   Query: {
     users: getUserList,
     userByName: getUserByName,
+    loggedInUser: loggedInUser,
   },
   Mutation: {
     addUser: addUser,
     updateUser: updateUser,
     deleteUser: deleteUser,
     login: login,
-    loggedInUser: loggedInUser,
   },
 };
 
