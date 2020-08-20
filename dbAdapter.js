@@ -2,7 +2,15 @@ const MongoClient = require("mongodb").MongoClient;
 const { dbDeatils } = require("./config/config");
 var ObjectID = require("mongodb").ObjectID;
 const { logger } = require("./logger.js");
-const url = dbDeatils.url;
+const url =
+  dbDeatils.url +
+  dbDeatils.username +
+  ":" +
+  dbDeatils.password +
+  "@" +
+  dbDeatils.host +
+  ":" +
+  dbDeatils.port;
 const client = new MongoClient(url, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

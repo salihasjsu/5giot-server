@@ -1,5 +1,5 @@
 const { getDBConnection } = require("../dbAdapter");
-const { UserInputError } = require("apollo-server-koa");
+const { UserInputError } = require("apollo-server-express");
 
 async function updateAsset(
   root,

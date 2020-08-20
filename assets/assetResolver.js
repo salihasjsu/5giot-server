@@ -1,4 +1,7 @@
-const { ApolloServer, AddArgumentsAsVariables } = require("apollo-server-koa");
+const {
+  ApolloServer,
+  AddArgumentsAsVariables,
+} = require("apollo-server-express");
 const { getAssetList, getAssetById } = require("./fetchAsset");
 const { addAsset } = require("./postAsset");
 const { updateAsset } = require("./updateAsset");

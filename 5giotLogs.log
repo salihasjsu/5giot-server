@@ -8,3 +8,27 @@
 [2020-08-19T15:16:09.415] [DEBUG] 5GiotLogs - Database Connected successfully
 [2020-08-19T15:16:15.933] [DEBUG] 5GiotLogs - server started at path /graphql on 9000
 [2020-08-19T15:16:15.979] [DEBUG] 5GiotLogs - Database Connected successfully
+[2020-08-19T15:18:46.923] [DEBUG] 5GiotLogs - server started at path /graphql on 9000
+[2020-08-19T15:18:46.952] [DEBUG] 5GiotLogs - Database Connected successfully
+[2020-08-20T02:35:31.429] [DEBUG] 5GiotLogs - server started at path /graphql on 9000
+[2020-08-20T02:36:24.607] [DEBUG] 5GiotLogs - server started at path /graphql on 9000
+[2020-08-20T02:37:31.190] [DEBUG] 5GiotLogs - server started at path /graphql on 9000
+[2020-08-20T02:37:31.266] [DEBUG] 5GiotLogs - Database Connected successfully
+[2020-08-20T02:37:52.555] [DEBUG] 5GiotLogs - server started at path /graphql on 9000
+[2020-08-20T02:37:52.631] [DEBUG] 5GiotLogs - Database Connected successfully
+[2020-08-20T02:38:35.149] [DEBUG] 5GiotLogs - server started at path /graphql on 9000
+[2020-08-20T02:39:37.797] [DEBUG] 5GiotLogs - server started at path /graphql on 9000
+[2020-08-20T02:40:50.610] [DEBUG] 5GiotLogs - mongodb://5giotAdmin:sjsu123@localhost:27017
+[2020-08-20T02:40:50.712] [DEBUG] 5GiotLogs - server started at path /graphql on 9000
+[2020-08-20T02:40:50.775] [DEBUG] 5GiotLogs - Database Connected successfully
+[2020-08-20T02:41:15.462] [DEBUG] 5GiotLogs - mongodb://DB_USERNAME:DB_PASSWORD@localhost:27017
+[2020-08-20T02:41:15.580] [DEBUG] 5GiotLogs - server started at path /graphql on 9000
+[2020-08-20T02:41:30.860] [DEBUG] 5GiotLogs - mongodb://$DB_USERNAME:$DB_PASSWORD@localhost:27017
+[2020-08-20T02:41:31.008] [DEBUG] 5GiotLogs - server started at path /graphql on 9000
+[2020-08-20T02:44:59.039] [DEBUG] 5GiotLogs - mongodb://5giotAdmin:sjsu123@localhost:27017
+[2020-08-20T02:44:59.147] [DEBUG] 5GiotLogs - server started at path /graphql on 9000
+[2020-08-20T02:44:59.208] [DEBUG] 5GiotLogs - Database Connected successfully
+[2020-08-20T02:45:08.446] [DEBUG] 5GiotLogs - server started at path /graphql on 9000
+[2020-08-20T02:45:08.535] [DEBUG] 5GiotLogs - Database Connected successfully
+[2020-08-20T02:45:24.669] [DEBUG] 5GiotLogs - server started at path /graphql on 9000
+[2020-08-20T02:45:24.731] [DEBUG] 5GiotLogs - Database Connected successfully

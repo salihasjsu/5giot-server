@@ -2,7 +2,7 @@ const {
   ApolloServer,
   gql,
   makeExecutableSchema,
-} = require("apollo-server-koa");
+} = require("apollo-server-express");
 const assetSchema = gql`
   extend type Query {
     assets: [asset]

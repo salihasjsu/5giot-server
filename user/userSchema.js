@@ -1,8 +1,4 @@
-const {
-  ApolloServer,
-  gql,
-  makeExecutableSchema,
-} = require("apollo-server-koa");
+const { gql } = require("apollo-server-express");
 const userSchema = gql`
   extend type Query {
     users: [user]

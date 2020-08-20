@@ -1,5 +1,5 @@
 const { getDBConnection, getObjectId } = require("../dbAdapter");
-const { UserInputError } = require("apollo-server-koa");
+const { UserInputError } = require("apollo-server-express");
 
 async function deleteUser(root, { _id }) {
   console.log("going to delete user...");
