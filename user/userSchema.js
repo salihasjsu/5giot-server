@@ -2,7 +2,7 @@ const { gql } = require("apollo-server-express");
 const userSchema = gql`
   extend type Query {
     users: [user]
-    userByName(userName: ID!): user
+    userByName(userName: String!): user
     loggedInUser: user
   }
   extend type Mutation {
@@ -21,13 +21,12 @@ const userSchema = gql`
       _id: String
       userName: String!
       email: String!
-      password: String!
+      password: String
       role: String!
       firstName: String!
       lastName: String!
       address: String!
       contactNumber: String!
-      tokenCount: String
     ): response
     deleteUser(_id: String!): response
     login(userName: String!, password: String!): tokens
@@ -40,8 +39,8 @@ const userSchema = gql`
     firstName: String
     lastName: String
     address: String
+    password: String
     contactNumber: String
-    tokenCount: String
   }
 
   type tokens {

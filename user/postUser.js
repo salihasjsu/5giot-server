@@ -1,10 +1,8 @@
 const { getDBConnection } = require("../dbAdapter");
 const { UserInputError } = require("apollo-server-express");
-const bcrypt = require("bcrypt");
 const { setTokens } = require("../shared/setTokens");
 const userSchema = require("./userSchema");
-const saltRounds = 10;
-
+const { encrypt, decrypt } = require("../shared/encryption");
 async function addUser(
   root,
   {
@@ -29,11 +27,9 @@ async function addUser(
       validationErrors
     );
   /* Hashing the password */
-  let hash = bcrypt.hashSync(password, saltRounds);
-  password = hash;
+  password = encrypt(password);
   const userCollection = getDBConnection().collection("users");
   let res = null;
-  let tokenCount = 7;
   res = await new Promise((resolve, reject) => {
     userCollection.insertOne(
       {
@@ -46,7 +42,6 @@ async function addUser(
         lastName,
         address,
         contactNumber,
-        tokenCount,
       },
       {},
       (err, result) => {
@@ -72,7 +67,8 @@ async function login(root, { userName, password }) {
     .findOne({ userName: userName }, {})
     .then((res) => {
       if (!res) return null;
-      if (!bcrypt.compareSync(password, res.password)) return null;
+      //if (!bcrypt.compareSync(password, res.password)) return null;
+      if (!(password === decrypt(res.password))) return null;
       return setTokens(res);
     });
 

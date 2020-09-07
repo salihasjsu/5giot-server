@@ -1,5 +1,6 @@
-const { getDBConnection } = require("../dbAdapter");
+const { getDBConnection, getObjectId } = require("../dbAdapter");
 const { UserInputError } = require("apollo-server-express");
+const { encrypt } = require("../shared/encryption");
 
 async function updateUser(
   root,
@@ -40,9 +41,20 @@ async function updateUser(
   let res = await new Promise((resolve, reject) => {
     userCollection.findOneAndUpdate(
       {
-        myquery,
+        _id: getObjectId(_id),
       },
-      { $set: { obj } },
+      {
+        $set: {
+          firstName: firstName,
+          lastName: lastName,
+          password: encrypt(password),
+          email: email,
+          role: role,
+          userName: userName,
+          contactNumber: contactNumber,
+          address: address,
+        },
+      },
       { upsert: true },
       (err, result) => {
         if (err) return reject({ code: "400", isError: true, message: err });

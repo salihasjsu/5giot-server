@@ -1,6 +1,7 @@
 const { getDBConnection, getObjectId } = require("../dbAdapter");
 const { UserInputError } = require("apollo-server-express");
 const isEmpty = require("lodash/isEmpty");
+const { decrypt } = require("../shared/encryption");
 
 async function getUserList() {
   console.log("going to get UserList");
@@ -23,6 +24,7 @@ async function getUserByName(root, { userName }) {
       throw new UserInputError("Could not find user for ID specified", {
         ID: userName,
       });
+    res.password = decrypt(res.password);
     return res;
   });
 }
@@ -33,8 +35,10 @@ async function getUserById(id) {
   let user = userCollection
     .findOne({ _id: getObjectId(id) }, {})
     .then((res) => {
+      if (res) res.password = decrypt(res.password);
       return res;
     });
+
   return user;
 }
 

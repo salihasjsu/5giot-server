@@ -22,7 +22,7 @@ async function initDB() {
     db = await new Promise((resolve, reject) =>
       client.connect((err) => {
         if (err) return reject(err);
-        let database = client.db("5gIoT");
+        let database = client.db(dbDeatils.dbName);
         resolve(database);
         logger.debug("Database Connected successfully");
       })
