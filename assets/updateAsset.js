@@ -1,34 +1,22 @@
-const { getDBConnection } = require("../dbAdapter");
+const { getDBConnection, getObjectId } = require("../dbAdapter");
 const { UserInputError } = require("apollo-server-express");
 
-async function updateAsset(
-  root,
-  { _id, name, model, manufactureId, manufactureDate }
-) {
+async function updateAsset(root, { _id, name, manufacturer, status, imei }) {
   console.log("going to updare user");
-  let validationErrors = {};
-  if (name.length == 0) validationErrors.userName = "name is required";
-  if ((model.length = 0)) validationErrors.email = "model is required";
-  if (Object.keys(validationErrors).length > 0)
-    throw new UserInputError(
-      "Post update failed due to incorrect data. Please correct the below fields before proceeding.",
-      validationErrors
-    );
   const assetCollection = getDBConnection().collection("assets");
-  var myquery = { _id: _id };
+  var myquery = {};
   var obj = {
-    _id,
     name,
-    model,
-    manufactureId,
-    manufactureDate,
+    manufacturer,
+    imei,
+    status,
   };
   let res = await new Promise((resolve, reject) => {
     assetCollection.findOneAndUpdate(
       {
-        myquery,
+        _id: getObjectId(_id),
       },
-      { $set: { obj } },
+      { $set: obj },
       { upsert: true },
       (err, result) => {
         if (err) return reject({ code: "400", isError: true, message: err });

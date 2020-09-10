@@ -6,31 +6,31 @@ const {
 const assetSchema = gql`
   extend type Query {
     assets: [asset]
-    assetById(id: ID!): asset
+    assetById(id: String!): asset
   }
   extend type Mutation {
     addAsset(
       _id: String
       name: String!
-      model: String!
-      manufactureId: String!
-      manufactureDate: String!
+      manufacturer: String!
+      imei: String!
+      status: String!
     ): response
     updateAsset(
       _id: String
       name: String!
-      model: String!
-      manufactureId: String!
-      manufactureDate: String!
+      imei: String!
+      manufacturer: String!
+      status: String!
     ): response
     deleteAsset(_id: String!): response
   }
   type asset {
     _id: String
     name: String
-    manufactureId: String
-    manufactureDate: String
-    model: String
+    manufacturer: String
+    imei: String
+    status: String
   }
 `;
 module.exports = assetSchema;
