@@ -1,29 +1,18 @@
 const { ApolloServer, AuthenticationError } = require("apollo-server-express");
 const { serverConfig, logLevel } = require("./config/config");
-
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const express = require("express");
-const jwt = require("jsonwebtoken");
 const typeDefs = require("./typeDefs");
 const { initDB, closeDB } = require("./dbAdapter");
 const userResolver = require("./user/userResolver");
 const assetResolver = require("./assets/assetResolver");
 const { validateTokensMiddleware } = require("./shared/validateMidlleware");
 const { logger } = require("./logger.js");
+const { wsServer } = require("./WebSocketServer/server");
 const app = express();
 app.use(cors(), bodyParser.json());
-/*const context = ({ req }) => {
-  const token = req.headers.authorization || "";
-  console.log(req.headers.authorization);
-  const splitToken = token.split(" ")[1];
-  try {
-    jwt.verify(splitToken, jwtSecret);
-  } catch (e) {
-    throw new AuthenticationError("Authenication token is invalid");
-  }
-};
-*/
+
 const apolloServer = new ApolloServer({
   typeDefs,
   resolvers: [userResolver, assetResolver],

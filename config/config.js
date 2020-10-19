@@ -15,6 +15,11 @@ const serverConfig = {
   port: process.env.PORT,
 };
 
+const wsServerConfig = {
+  host: process.env.WS_SERVER_HOST,
+  port: process.env.WS_SERVER_PORT,
+};
+
 module.exports = {
   dbDeatils: dbDetails,
   production: dbDetails,
@@ -22,4 +27,5 @@ module.exports = {
   secretKey: process.env.SECRET_KEY,
   logLevel: process.LOG_LEVEL,
   encKey: process.env.ENCRYPTION_KEY,
+  wsServerConfig: wsServerConfig,
 };

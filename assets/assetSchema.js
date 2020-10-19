@@ -6,7 +6,7 @@ const {
 const assetSchema = gql`
   extend type Query {
     assets: [asset]
-    assetById(id: String!): asset
+    assetById(_id: String!): asset
   }
   extend type Mutation {
     addAsset(
