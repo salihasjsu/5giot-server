@@ -27,7 +27,7 @@ app.post("/login", (req, res) => {
   const token = jwt.sign({ sub: 1 }, jwtSecret);
   res.send(token);
 });*/
-const server = app.listen(serverConfig.port, serverConfig.host, () => {
+const server = app.listen(serverConfig.port, () => {
   logger.debug(
     `server started at path ${apolloServer.graphqlPath} on ${serverConfig.port}`
   );

@@ -1,0 +1,27 @@
+version: "3"
+services:
+  app:
+    container_name: 5giotadmin
+    restart: always
+    build: .
+    ports:
+      - "9000:9000"
+    links:
+      - mongo
+    environment:
+      DB_HOST: mongo
+      DB_PORT: 27017
+      PORT: 9000
+      HOST: localhost
+      IotHubConnectionString: HostName=5GIoT-ER.azure-devices.net;SharedAccessKeyName=service;SharedAccessKey=MhBrVZ7p75MpEAhbMYDUpsrFTDc4E8Fv5NGx03H8gIc=
+      EventHubConsumerGroup: alsvteam
+      WS_SERVER_HOST: localhost
+  mongo:
+    container_name: mongo
+    image: mongo
+    ports:
+      - "27018:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: 5giotAdmin
+      MONGO_INITDB_ROOT_PASSWORD: sjsu123
+      MONGO_INITDB_DATABASE: 5gIoT
