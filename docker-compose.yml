@@ -6,6 +6,7 @@ services:
     build: .
     ports:
       - "9000:9000"
+      - "9001:9001"
     links:
       - mongo
     environment:
@@ -16,12 +17,19 @@ services:
       IotHubConnectionString: HostName=5GIoT-ER.azure-devices.net;SharedAccessKeyName=service;SharedAccessKey=MhBrVZ7p75MpEAhbMYDUpsrFTDc4E8Fv5NGx03H8gIc=
       EventHubConsumerGroup: alsvteam
       WS_SERVER_HOST: localhost
+    networks:
+      - dockernet
   mongo:
     container_name: mongo
     image: mongo
     ports:
       - "27018:27017"
+    networks:
+      - dockernet
     environment:
       MONGO_INITDB_ROOT_USERNAME: 5giotAdmin
       MONGO_INITDB_ROOT_PASSWORD: sjsu123
       MONGO_INITDB_DATABASE: 5gIoT
+networks:
+  dockernet:
+    external: true

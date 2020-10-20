@@ -45,7 +45,7 @@ wss.broadcast = (data) => {
   });
 };
 
-server.listen(wsServerConfig.port, wsServerConfig.host, () => {
+server.listen(wsServerConfig.port, () => {
   logger.debug(
     `Web Socket server started at path ${wsServerConfig.host} on ${wsServerConfig.port}`
   );
@@ -64,7 +64,7 @@ const eventHubReader = new EventHubReader(
         MessageDate: date || Date.now().toISOString(),
         DeviceId: deviceId,
       };
-
+      //   console.log("REC from AZURE", JSON.stringify(payload));
       wss.broadcast(JSON.stringify(payload));
     } catch (err) {
       console.error("Error broadcasting: [%s] from [%s].", err, message);
