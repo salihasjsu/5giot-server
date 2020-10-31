@@ -1,7 +1,7 @@
 /*
  * Microsoft Sample Code - Copyright (c) 2020 - Licensed MIT
  */
-
+const { logger } = require("../logger.js");
 const {
   EventHubProducerClient,
   EventHubConsumerClient,
@@ -25,12 +25,12 @@ class EventHubReader {
         this.consumerGroup,
         eventHubConnectionString
       );
-      console.log(
+      logger.debug(
         "Successfully created the EventHubConsumerClient from IoT Hub event hub-compatible connection string."
       );
 
       const partitionIds = await consumerClient.getPartitionIds();
-      console.log("The partition ids are: ", partitionIds);
+      logger.debug("The partition ids are: ", partitionIds);
 
       consumerClient.subscribe({
         processEvents: (events, context) => {

@@ -4,6 +4,7 @@ const WebSocket = require("ws");
 const { wsServerConfig } = require("../config/config");
 const EventHubReader = require("./event-hub-reader.js");
 const { logger } = require("../logger.js");
+const { parse } = require("path");
 
 const iotHubConnectionString = process.env.IotHubConnectionString;
 if (!iotHubConnectionString) {
@@ -54,17 +55,32 @@ const eventHubReader = new EventHubReader(
   iotHubConnectionString,
   eventHubConsumerGroup
 );
-
+function isBuffer(arg) {
+  return arg instanceof Buffer;
+}
 (async () => {
   console.log("Event Hub Reader");
   await eventHubReader.startReadMessage((message, date, deviceId) => {
+    //console.log("IS BUFFER:", isBuffer(message));
+    if (isBuffer(message)) {
+      let bufferOriginal = JSON.stringify(message);
+      console.log("buffer original", bufferOriginal);
+      let bufferData = Buffer.from(JSON.parse(bufferOriginal).data);
+      message = bufferData.toString("utf8");
+      //console.log();
+      console.log(message);
+      // message = JSON.parse(message);
+    }
+
     try {
       const payload = {
         IotData: message,
         MessageDate: date || Date.now().toISOString(),
-        DeviceId: deviceId,
+        DeviceId: message.deviceId || deviceId,
       };
-      //   console.log("REC from AZURE", JSON.stringify(payload));
+      // payload.IotData.long = 122.13317213;
+      // payload.IotData.lat = 38.08901454;
+      //console.log("REC from AZURE", JSON.stringify(payload));
       wss.broadcast(JSON.stringify(payload));
     } catch (err) {
       console.error("Error broadcasting: [%s] from [%s].", err, message);
