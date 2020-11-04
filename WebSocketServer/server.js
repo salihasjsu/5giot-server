@@ -37,7 +37,7 @@ wss.broadcast = (data) => {
   wss.clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN) {
       try {
-        console.log(`Broadcasting data ${data}`);
+        logger.debug(`Broadcasting data ${data}`);
         client.send(data);
       } catch (e) {
         console.error(e);
@@ -61,25 +61,12 @@ function isBuffer(arg) {
 (async () => {
   console.log("Event Hub Reader");
   await eventHubReader.startReadMessage((message, date, deviceId) => {
-    //console.log("IS BUFFER:", isBuffer(message));
-    if (isBuffer(message)) {
-      let bufferOriginal = JSON.stringify(message);
-      console.log("buffer original", bufferOriginal);
-      let bufferData = Buffer.from(JSON.parse(bufferOriginal).data);
-      message = bufferData.toString("utf8");
-      //console.log();
-      console.log(message);
-      // message = JSON.parse(message);
-    }
-
     try {
       const payload = {
         IotData: message,
         MessageDate: date || Date.now().toISOString(),
         DeviceId: message.deviceId || deviceId,
       };
-      // payload.IotData.long = 122.13317213;
-      // payload.IotData.lat = 38.08901454;
       //console.log("REC from AZURE", JSON.stringify(payload));
       wss.broadcast(JSON.stringify(payload));
     } catch (err) {
