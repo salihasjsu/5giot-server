@@ -1,6 +1,6 @@
 # 5giot-server
 Technology used are
-## Nodejs
-## Graphql for REST API
-## MongoDB 
-## WebSocket Server for real time data transfer
+ 1. Nodejs
+ 2. Graphql for REST API
+ 3. MongoDB 
+ 4. WebSocket Server for real time data transfer
